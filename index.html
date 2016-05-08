@@ -3,6 +3,7 @@
   <head>
     <!-- CSS file -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
     <link rel="stylesheet" href="src/css/todo.css">
   </head>
   <body>
@@ -10,16 +11,99 @@
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js"></script>
 
     <!-- App controller -->
     <script src="src/js/controller/todo.js"></script>
+    <script src="src/js/controller/enrollment.js"></script>
     <script src="src/js/route/route.js"></script>
 
     <!-- some navigation -->
-    <ul class="nav nav-pills">
+
+    <nav class="navbar navbar-inverse" ng-controller="enrollmentController">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-4">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://www.ku.ac.th/">Kasetsart University</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-4">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a ui-sref="enrollment">Registration</a></li>
+            <li><a href="https://inter-regis.ku.ac.th/">Registration Old Version</a></li>
+            <li><a href="#" data-toggle="modal"  data-target="#exportjson">Export .json</a></li>
+            <!-- <li><a href="#">Services</a></li>
+            <li><a href="#">Works</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Contact</a></li> -->
+            <!-- <li ng-show = "!islogin">
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Sign in</a>
+            </li> -->
+            <!-- <li ng-show = "islogin">
+              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse4" aria-expanded="false" aria-controls="nav-collapse4">Profile <i class=""></i> </a>
+            </li> -->
+          </ul>
+          <!-- <div class="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
+            <form class="navbar-form navbar-right form-inline" role="form">
+              <div class="form-group">
+                <label class="sr-only" for="Email">Email</label>
+                <input type="email" class="form-control" ng-model="email" id="Email" placeholder="Email" autofocus required />
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="Password">Password</label>
+                <input type="password" class="form-control" ng-model="password" id="Password" placeholder="Password" required />
+              </div>
+              <button type="submit" class="btn btn-success" ng-click="loginEmail(email, password)" ui-sref="enrollment">Sign in</button>
+            </form>
+          </div> -->
+
+          <div class="modal fade" id="exportjson" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    <pre>{{getJson()}}</pre>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveToPc()">Donwload</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          <!-- <ul class="collapse nav navbar-nav nav-collapse slide-down" role="search" id="nav-collapse4">
+            <li><a href="#">Support</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Maridlcrmn <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">My profile</a></li>
+                <li><a href="#">Favorited</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul> -->
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+
+    <!-- <ul class="nav nav-pills">
     <li role="presentation"><a ui-sref="home">Home</a></li>
     <li role="presentation"><a ui-sref="changepage">Change Page</a></li>
+    <li role="presentation"><a ui-sref="enrollment">Enrollment</a></li> -->
   </ul>
 
     <div ui-view></div>

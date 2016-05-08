@@ -1,13 +1,17 @@
 angular.module('todoApp', ['ui.router'])
-  .controller('TodoListController', function () {
+  .controller('TodoListController', function ($http) {
     var todoList = this
     todoList.todos = [
       {text: 'learn angular', done: true},
       {text: 'build an angular app', done: false}]
 
     todoList.addTodo = function () {
-      todoList.todos.push({text: todoList.todoText, done: false})
-      todoList.todoText = ''
+      console.log("aaaaa");
+      data = {StudentID: "5610511111", Password: "1111", FirstName: "Nara", LastName: "Surawit" }
+      $http.post('http://52.37.98.127:3000/v1/5610511111?pin=1111', data).success(function(a){
+          //data : {StudentID: "5610511111", Password: "1111", FirstName: "Nara", LastName: "Surawit" }
+          console.log("a");
+        });
     }
 
     todoList.remaining = function () {
@@ -26,3 +30,20 @@ angular.module('todoApp', ['ui.router'])
       })
     }
   })
+
+angular.module('filters',[])
+  .filter('objFilter', function($filter){
+
+    return function(input, query){
+      if(!query) return input;
+      var result = [];
+
+      angular.forEach(input, function(v,k){
+          result.push(v);          
+      });
+
+      var refined = $filter('filter')(result,query);
+
+      return refined;
+    };
+  });

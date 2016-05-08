@@ -1,0 +1,145 @@
+<!-- <div class="text-center pagination-centered">
+  <h1>Enrollment</h1>
+</div> -->
+<div class="container" ng-controller="enrollmentController">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h3>Your Courses</h3>
+    </div>
+  </div>
+
+  <table class="table table-hover"> 
+    <thead> 
+      <tr> 
+        <th>#</th> 
+        <th style="width:10%;">Course ID</th> 
+        <th style="width:10%;">Section</th> 
+        <th style="width:50%;">Course Name</th>
+        <th style="width:10%;">Type</th>
+        <th style="width:10%;">Credit</th>
+        <th style="width:10%;"></th>
+      </tr> 
+    </thead>
+    <tbody>
+      <tr ng-repeat="course in addedCourse track by $index">
+        <th scope="row">{{$index+1}}</th> 
+        <td>{{course.id}}</td> 
+        <td>{{course.section.id}}</td> 
+        <td>{{course.name.en}}</td> 
+        <td>{{course.creditType}}</td>
+        <td>{{course.credit.total}}</td>
+        <td><button type="button" class="btn btn-danger" ng-click="dropCourse(aCourse, aSection)">Drop</button></td>
+      </tr>
+      <tr ng-show="getTotal() != 0">
+        <th scope="row"></th> 
+        <td></td> 
+        <td></td> 
+        <td></td> 
+        <td>Total</td>
+        <td>{{getTotal()}} / 22</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="list-group">
+    <!-- <div class="panel panel-default"> -->
+    <div class="row">
+      <div class="col-lg-4 col-lg-offset-4">
+      <input ng-model="query.id" class="form-control" placeholder="Search your courses by using course ID" style="margin-bottom: 3em">
+      </div>
+    </div>
+
+    <div class="panel-group" id="heading1" aria-multiselectable="true" role="tablist" aria-multiselectable="true">
+      <!-- <li ng-repeat="aCourse in courses"> -->
+      <button ng-repeat="aCourse in courses | objFilter:query" type="button" class="list-group-item" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapse{{aCourse.id}}" aria-expanded="false" aria-controls="collapse{{aCourse.id}}">
+        <h4 class="panel-title">
+          {{aCourse.id}}
+          <span class= "tab-space">{{aCourse.name.en}}</span>
+          <span ng-show="addedCourse.indexOf(aCourse) != -1">
+            Enrolled
+          </span>
+          <div class= "pull-right">
+            <span ng-show="addedCourse.indexOf(aCourse) != -1">
+              Enrolled  
+            </span>
+            <span class="glyphicon glyphicon-triangle-bottom">
+            </span>
+          </div>
+        </h4>
+        <!-- </div> -->
+        <div id="collapse{{aCourse.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{aCourse.id}}">
+          <span class="panel-body">
+            <b style="font-size: 15pt">Credit:</b>
+            <div class="btn-group" role="group">
+              <div class="btn btn-default disabled">Self : {{aCourse.credit.self}}</div>
+              <div class="btn btn-default disabled">Lab : {{aCourse.credit.lab}}</div>
+              <div class="btn btn-default disabled">Total : {{aCourse.credit.total}}</div>
+              <div class="btn btn-default disabled">Lecture : {{aCourse.credit.lecture}}</div>
+            </div>
+          </span>
+          <span class="panel-body">
+            {{aCourse.description.en}}
+          </span>
+          <ul class="event-list">
+            <!-- {{getSection(aCourse.id)}} -->
+            <div ng-show="sections[aCourse.id] == undefined">
+                <h1 class="text-center"><font color="red">No Section in This Course</font></h1>
+            </div>
+            <li ng-repeat="aSection in sections[aCourse.id]" ng-if="aSection !== undefined">
+              <time datetime="2014-07-20" >
+                <span class="day">Section</span>
+                <span class="month">{{aSection.id}}</span>
+              </time>
+
+              <div class="info">
+                <h2 class="title">{{aSection.type}}</h2>
+                <p class="desc"><b>Instructor:</b> {{aSection.instructors[0]}}</p>
+                <ul>
+                  <li style="width:25%;"><b>Where </b><span class="glyphicon glyphicon-map-marker"> {{aSection.location}}</span></li>
+                  <li style="width:25%;"><b>When </b><span class="glyphicon glyphicon-time"> {{aSection.date}}</span></li>
+                  <li style="width:25%;"><b>Enroll </b><span class="glyphicon glyphicon-user"> {{aSection.enrolled}}</span></li>
+                  <li style="width:25%;"><b>Remain </b><span class="glyphicon glyphicon-user"> {{aSection.accept}}</span></li>
+                </ul>
+              </div>
+              <div class="social">
+                <ul ng-show="addedCourse.indexOf(aCourse) == -1">
+                  <li class="facebook" style="width:100%;"><a href="" ng-click="addCourse(aCourse, aSection)"><span class="glyphicon glyphicon-plus vcenter"></span></a></li>
+                </ul>
+                <ul ng-show="addedCourse.indexOf(aCourse) != -1" disabled="disabled">
+                  <div class="facebook" style="width:100%; padding-top: 25px"><h2 class="text-center vcenter" style="margin-bottom: 40px; font-size: 32px; font-color: #1a6;">Enrolled</h2></div>
+                </ul>
+              </div>
+            </li>
+
+
+          </ul>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <a href="#0" class="back-to-top cd-top cd-is-visible"><span class="[ fa fa-chevron-up ]"></span> <span class="[ ]">Back to the Top</span></a>
+
+  </div>
+</div>
+<!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+  Button with data-target
+</button>
+<div class="collapse" id="collapseExample">
+  <div class="well">
+    dgelkrgnioernagoinerougneorngjoengojenrgnal
+  </div>
+</div>
+
+  <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse
+  </button>
+  <hr>
+  <div uib-collapse="isCollapsed">
+    <div class="well well-lg">Some content</div>
+  </div> -->
+  <input type="button"  class="goToTop" value="Scroll Top" style="display:none;background-color:red"  />
+
+  
+</div>
+</div>
+
