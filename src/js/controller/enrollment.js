@@ -1,5 +1,5 @@
 angular.module('todoApp', ['ui.router'])
-  .controller('enrollmentController', function ($http, $scope) {
+  .controller('enrollmentController', function ($http, $scope, enrollservice) {
     var enrollmentList = this;
     $scope.isLogin = false;
     $scope.courses = [];
@@ -7,7 +7,8 @@ angular.module('todoApp', ['ui.router'])
     $scope.sections = {};
     $scope.sections2 =[];
     $scope.addedCourse = [];
-    filejson = {};
+    $scope.addedCoursejson = [];
+    $scope.filejson = {};
     // todoList.todos = [
     //   {text: 'learn angular', done: true},
     //   {text: 'build an angular app', done: false}]
@@ -48,10 +49,13 @@ angular.module('todoApp', ['ui.router'])
     }
 
     $scope.getJson = function (){
-      filejson = {};
-      filejson["StudentID"] = "5610511111";
-      filejson["courses"] = $scope.addedCourse;
-      return JSON.stringify(filejson, undefined, 2);
+      // filejson["StudentID"] = "5610511111";
+      // filejson["courses"] = $scope.addedCourse;
+      $scope.addedCourse = enrollservice.get();
+      console.log($scope.addedCourse);
+      // $scope.addedCoursejson = $scope.addedCourse.slice(0);
+      // console.log($scope.addedCoursejson);
+      $scope.filejson = JSON.stringify($scope.addedCourse.slice(0), undefined, 2);
     }
 
     $scope.loginEmail = function (email, password){
@@ -87,7 +91,12 @@ angular.module('todoApp', ['ui.router'])
       if($scope.getTotal()+aCourse.credit.total <= 22){
         aCourse["section"] = aSection;
         aCourse["creditType"] = "Credit";
+        // console.log(aCourse);
         $scope.addedCourse.push(aCourse);
+
+        enrollservice.set($scope.addedCourse);
+        console.log($scope.addedCourse);
+
       }
       else{
       $.notify({
@@ -143,7 +152,8 @@ angular.module('todoApp', ['ui.router'])
     $scope.dropCourse = function (aCourse, aSection){
       // aCourse["section"] = aSection;
       var index = $scope.addedCourse.indexOf(aCourse);
-      $scope.addedCourse.splice(index, 1); 
+      $scope.addedCourse.splice(index, 1);
+      enrollservice.set($scope.addedCourse); 
       // aCourse["section"] = aSection;
       // $scope.addedCourse.push(aCourse);
 
@@ -157,6 +167,8 @@ angular.module('todoApp', ['ui.router'])
         total += aCourse.credit.total;
     }
     return total;
+     }
+
 
   // $.notify({
   // // options
@@ -165,7 +177,9 @@ angular.module('todoApp', ['ui.router'])
   // // settings
   //   type: 'danger'
   // });
-}
+
+
+
 
     
   })
@@ -184,6 +198,49 @@ angular.module('todoApp', ['ui.router'])
       return refined;
     };
   })
+
+  .service('enrollservice', function() {
+    var enroll =[];
+    var enrollJson = {};
+    this.set = function(obj){
+      enroll = obj;
+    }
+    this.get = function(){
+      return enroll;
+    }
+
+    this.getJson = function (){
+      // filejson["StudentID"] = "5610511111";
+      // filejson["courses"] = $scope.addedCourse;
+      // $scope.addedCourse = enrollservice.get();
+      // console.log($scope.addedCourse);
+      // $scope.addedCoursejson = $scope.addedCourse.slice(0);
+      // console.log($scope.addedCoursejson);
+      enrollJson = JSON.stringify(enroll.slice(0), undefined, 2);
+    }
+
+    this.saveToPc = function () {
+
+      if (!enrollJson) {
+        console.error('No data');
+        return;
+      }
+      // if (typeof filejson === 'object') {
+      //   filejson = JSON.stringify(data, undefined, 2);
+      // }
+
+      var blob = new Blob([enrollJson], {type: 'text/json'}),
+        e = document.createEvent('MouseEvents'),
+        a = document.createElement('a');
+
+      a.download = 'download.json';
+      a.href = window.URL.createObjectURL(blob);
+      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+      e.initEvent('click', true, false, window,
+          0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dispatchEvent(e);
+    };
+});
 
 
 

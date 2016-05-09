@@ -40,7 +40,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a ui-sref="enrollment">Registration</a></li>
             <li><a href="https://inter-regis.ku.ac.th/">Registration Old Version</a></li>
-            <li><a href="#" data-toggle="modal"  data-target="#exportjson">Export .json</a></li>
+            <li><a href="#" data-toggle="modal"  data-target="#exportjson" ng-click="getJson()">Export .json</a></li>
             <!-- <li><a href="#">Services</a></li>
             <li><a href="#">Works</a></li>
             <li><a href="#">News</a></li>
@@ -66,7 +66,7 @@
             </form>
           </div> -->
 
-          <div class="modal fade" id="exportjson" tabindex="-1" role="dialog">
+          <div class="modal fade" id="exportjson" tabindex="-1" role="dialog" >
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -74,7 +74,7 @@
                     <h4 class="modal-title">Modal title</h4>
                   </div>
                   <div class="modal-body">
-                    <pre>{{getJson()}}</pre>
+                    <pre>{{filejson}}</pre>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -107,5 +107,7 @@
   </ul>
 
     <div ui-view></div>
+
+<!--     <back-top scroll-speed=600 button-theme="light" button-text="Take me back"></back-top> -->
   </body>
 </html>
