@@ -69,13 +69,17 @@
         <!-- </div> -->
         <div id="collapse{{aCourse.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{aCourse.id}}">
           <span class="panel-body">
-            <b style="font-size: 15pt">Credit:</b>
-            <div class="btn-group" role="group">
-              <div class="btn btn-default disabled">Self : {{aCourse.credit.self}}</div>
-              <div class="btn btn-default disabled">Lab : {{aCourse.credit.lab}}</div>
-              <div class="btn btn-default disabled">Total : {{aCourse.credit.total}}</div>
-              <div class="btn btn-default disabled">Lecture : {{aCourse.credit.lecture}}</div>
-            </div>
+            <table class="table table-bordered" style="width: 50%;">
+              <thead> 
+                <tr> 
+                  <th style="width: 10px;"><b style="font-size: 15pt">Credit:</b></th>
+                  <th style="width:10px;">Self : {{aCourse.credit.self}}</th> 
+                  <th style="width:10px;">Lab : {{aCourse.credit.lab}}</th> 
+                  <th style="width:10px;">Total : {{aCourse.credit.total}}</th>
+                  <th style="width:10px;">Lecture : {{aCourse.credit.lecture}}</th>
+                </tr> 
+              </thead>
+            </table>
           </span>
           <span class="panel-body">
             {{aCourse.description.en}}

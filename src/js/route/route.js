@@ -18,4 +18,8 @@ angular.module('todoApp')
       url: "/registration",
       templateUrl: "src/view/enrollment.tmpl"
     })
+    .state('login', {
+      url: "/login",
+      templateUrl: "src/view/loginPage.tmpl"
+    })
 });
