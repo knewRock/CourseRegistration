@@ -32,25 +32,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://www.ku.ac.th/">Kasetsart University</a>
+          <a class="navbar-brand" ui-sref="login">Kasetsart University</a>
         </div>
     
+        <div class="red"></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-4">
           <ul class="nav navbar-nav navbar-right">
-            <li><a ui-sref="enrollment">Registration</a></li>
-            <li><a href="https://inter-regis.ku.ac.th/">Registration Old Version</a></li>
-            <li><a href="#" data-toggle="modal"  data-target="#exportjson" ng-click="getJson()">Export .json</a></li>
+            <li ng-show = "isLogin"><a ui-sref="enrollment">Registration</a></li>
+            <li ng-show = "isLogin"><a href="https://inter-regis.ku.ac.th/">Registration Old Version</a></li>
+            <li ng-show = "isLogin"><a href="" data-toggle="modal"  data-target="#exportjson" ng-click="getJson()">Export .json</a></li>
             <!-- <li><a href="#">Services</a></li>
             <li><a href="#">Works</a></li>
             <li><a href="#">News</a></li>
             <li><a href="#">Contact</a></li> -->
-            <!-- <li ng-show = "!islogin">
+            <!-- <li ng-show = "!isLogin">
               <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Sign in</a>
             </li> -->
-            <!-- <li ng-show = "islogin">
-              <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse4" aria-expanded="false" aria-controls="nav-collapse4">Profile <i class=""></i> </a>
-            </li> -->
+            <li ng-show = "isLogin">
+              <a class="btn btn-default btn-outline btn-circle collapsed" ng-click="logoutStudentID()" >Logout<i class=""></i> </a>
+            </li>
           </ul>
           <!-- <div class="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
             <form class="navbar-form navbar-right form-inline" role="form">
